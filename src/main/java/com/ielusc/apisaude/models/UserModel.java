@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.ielusc.apisaude.helpers.GeneralStatus;
+import com.ielusc.apisaude.helpers.Permission;
 
 
 
@@ -17,7 +20,7 @@ import com.ielusc.apisaude.helpers.GeneralStatus;
 @Table(name="TB_USERS")
 public class UserModel implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;  
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -36,6 +39,7 @@ public class UserModel implements Serializable{
 	private String password;
 	
 	private GeneralStatus status;
+	private Permission permission;
 
 	public long getIdUser() {
 		return idUser;
@@ -85,6 +89,15 @@ public class UserModel implements Serializable{
 		this.status = status;
 	}
 
+	public Permission getPermission() {
+		return permission;
+	}
 
+	public void setPermission(Permission permission) {
+		this.permission = permission;
+	}
+
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private MedicalRecordsModel medicalRecordsModel;
 	
 }

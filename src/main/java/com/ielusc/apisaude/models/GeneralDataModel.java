@@ -1,0 +1,155 @@
+package com.ielusc.apisaude.models;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.ielusc.apisaude.helpers.Gender;
+
+@Entity
+@Table(name="TB_GENERAL_DATA")
+public class GeneralDataModel implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
+	@Column(unique = true)
+	private String nr_cpf;
+	
+	@Column(unique = true, length=15)
+	private String nr_registration;
+	
+	@Column(length=40)
+	private String nm_social;
+	
+	@Column(length=10)
+	private Date dt_birth;
+	
+	private Gender gender;
+	
+	@Column(length=20)
+	private String genderIdentity;
+	
+	@Column(length=40)
+	private String nm_mother;
+	
+	@Column(length=40)
+	private String nm_father;
+	
+	@Column(length=40)
+	private String ds_nationality;
+	
+	@Column(length=60)
+	private String birth_township;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNr_cpf() {
+		return nr_cpf;
+	}
+
+	public void setNr_cpf(String nr_cpf) {
+		this.nr_cpf = nr_cpf;
+	}
+
+	public String getNr_registration() {
+		return nr_registration;
+	}
+
+	public void setNr_registration(String nr_registration) {
+		this.nr_registration = nr_registration;
+	}
+
+	public String getNm_social() {
+		return nm_social;
+	}
+
+	public void setNm_social(String nm_social) {
+		this.nm_social = nm_social;
+	}
+
+	public Date getDt_birth() {
+		return dt_birth;
+	}
+
+	public void setDt_birth(Date dt_birth) {
+		this.dt_birth = dt_birth;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public String getGenderIdentity() {
+		return genderIdentity;
+	}
+
+	public void setGenderIdentity(String genderIdentity) {
+		this.genderIdentity = genderIdentity;
+	}
+
+	public String getNm_mother() {
+		return nm_mother;
+	}
+
+	public void setNm_mother(String nm_mother) {
+		this.nm_mother = nm_mother;
+	}
+
+	public String getNm_father() {
+		return nm_father;
+	}
+
+	public void setNm_father(String nm_father) {
+		this.nm_father = nm_father;
+	}
+
+	public String getDs_nationality() {
+		return ds_nationality;
+	}
+
+	public void setDs_nationality(String ds_nationality) {
+		this.ds_nationality = ds_nationality;
+	}
+
+	public String getBirth_township() {
+		return birth_township;
+	}
+
+	public void setBirth_township(String birth_township) {
+		this.birth_township = birth_township;
+	}
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
+	private AddressModel addressModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
+	private ContactModel contactModel;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="medicalRecords_id")
+	private MedicalRecordsModel medicalRecordsModel;
+
+}

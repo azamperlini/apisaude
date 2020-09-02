@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ielusc.apisaude.helpers.GeneralStatus;
+import com.ielusc.apisaude.helpers.Permission;
 import com.ielusc.apisaude.models.UserModel;
 import com.ielusc.apisaude.repository.UserRepository;
 
@@ -60,6 +61,7 @@ public class UserController {
 		String hashed = bCryptPasswordEncoder.encode(password);
 		user.setPassword(hashed);
 		user.setStatus(GeneralStatus.ACTIVE);
+		user.setPermission(Permission.PUBLICO);
 		return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.CREATED);
 	}
 		
@@ -81,7 +83,19 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
 			user.setIdUser(userOne.get().getIdUser());
+		//	user.setPermission(userOne.get().getPermission());
 			return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.OK);
+		}
+	}
+	
+	@PutMapping("/{id}/permission")
+	public ResponseEntity<UserModel> updateUserPermission(@PathVariable(value="id") long id, @RequestBody @Valid Permission permission) {
+		Optional<UserModel> userOne = userRepository.findByIdUser(id);
+		if(!userOne.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			userOne.get().setPermission(permission);
+			return new ResponseEntity<UserModel>(userRepository.save(userOne.get()), HttpStatus.OK);
 		}
 	}
 
