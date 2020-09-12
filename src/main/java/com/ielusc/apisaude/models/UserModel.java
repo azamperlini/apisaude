@@ -39,7 +39,11 @@ public class UserModel implements Serializable{
 	private String password;
 	
 	private GeneralStatus status;
+	
 	private Permission permission;
+
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getIdUser() {
 		return idUser;
@@ -97,7 +101,12 @@ public class UserModel implements Serializable{
 		this.permission = permission;
 	}
 
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
-	private MedicalRecordsModel medicalRecordsModel;
+	public MedicalRecordsModel getMedicalRecordsModel() {
+		return medicalRecordsModel;
+	}
+
+	public void setMedicalRecordsModel(MedicalRecordsModel medicalRecordsModel) {
+		this.medicalRecordsModel = medicalRecordsModel;
+	}
 	
 }

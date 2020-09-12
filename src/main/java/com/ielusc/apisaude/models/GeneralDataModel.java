@@ -1,7 +1,6 @@
 package com.ielusc.apisaude.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +34,7 @@ public class GeneralDataModel implements Serializable{
 	private String nm_social;
 	
 	@Column(length=10)
-	private Date dt_birth;
+	private String dt_birth;
 	
 	private Gender gender;
 	
@@ -52,7 +51,23 @@ public class GeneralDataModel implements Serializable{
 	private String ds_nationality;
 	
 	@Column(length=60)
-	private String birth_township;
+	private String ds_birthTownship;
+	
+	@Column(length=15)
+	private String ds_maritalStatus;
+	
+	@Column(length=40)
+	private String profileImage;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
+	private AddressModel addressModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
+	private ContactModel contactModel;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="medicalRecords_id")
+	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getId() {
 		return id;
@@ -86,11 +101,11 @@ public class GeneralDataModel implements Serializable{
 		this.nm_social = nm_social;
 	}
 
-	public Date getDt_birth() {
+	public String getDt_birth() {
 		return dt_birth;
 	}
 
-	public void setDt_birth(Date dt_birth) {
+	public void setDt_birth(String dt_birth) {
 		this.dt_birth = dt_birth;
 	}
 
@@ -134,22 +149,53 @@ public class GeneralDataModel implements Serializable{
 		this.ds_nationality = ds_nationality;
 	}
 
-	public String getBirth_township() {
-		return birth_township;
+	public String getDs_birthTownship() {
+		return ds_birthTownship;
 	}
 
-	public void setBirth_township(String birth_township) {
-		this.birth_township = birth_township;
+	public void setDs_birthTownship(String ds_birthTownship) {
+		this.ds_birthTownship = ds_birthTownship;
 	}
-	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
-	private AddressModel addressModel;
-	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
-	private ContactModel contactModel;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="medicalRecords_id")
-	private MedicalRecordsModel medicalRecordsModel;
+
+	public String getDs_maritalStatus() {
+		return ds_maritalStatus;
+	}
+
+	public void setDs_maritalStatus(String ds_maritalStatus) {
+		this.ds_maritalStatus = ds_maritalStatus;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public AddressModel getAddressModel() {
+		return addressModel;
+	}
+
+	public void setAddressModel(AddressModel addressModel) {
+		this.addressModel = addressModel;
+	}
+
+	public ContactModel getContactModel() {
+		return contactModel;
+	}
+
+	public void setContactModel(ContactModel contactModel) {
+		this.contactModel = contactModel;
+	}
+
+	public MedicalRecordsModel getMedicalRecordsModel() {
+		return medicalRecordsModel;
+	}
+
+	public void setMedicalRecordsModel(MedicalRecordsModel medicalRecordsModel) {
+		this.medicalRecordsModel = medicalRecordsModel;
+	}
+
 
 }

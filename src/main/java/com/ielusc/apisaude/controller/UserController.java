@@ -61,7 +61,7 @@ public class UserController {
 		String hashed = bCryptPasswordEncoder.encode(password);
 		user.setPassword(hashed);
 		user.setStatus(GeneralStatus.ACTIVE);
-		user.setPermission(Permission.PUBLICO);
+		user.setPermission(Permission.PUBLIC);
 		return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.CREATED);
 	}
 		
@@ -83,7 +83,6 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
 			user.setIdUser(userOne.get().getIdUser());
-		//	user.setPermission(userOne.get().getPermission());
 			return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.OK);
 		}
 	}

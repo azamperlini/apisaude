@@ -37,11 +37,24 @@ public class AddressModel implements Serializable{
 	@Column(length=5)
 	private Integer number;
 	
-	@Column(length=10)
-	private boolean no_number; 
+	@Column
+	private boolean noNumber; 
 	
 	@Column(length=25)
 	private String ds_complement;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
+	private StateModel stateModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
+	private CityModel cityModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
+	private DistrictModel districtModel;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="general_data_id")
+	private GeneralDataModel generalDataModel;
 
 	public long getId() {
 		return id;
@@ -91,12 +104,12 @@ public class AddressModel implements Serializable{
 		this.number = number;
 	}
 
-	public boolean isNo_number() {
-		return no_number;
+	public boolean isNoNumber() {
+		return noNumber;
 	}
 
-	public void setNo_number(boolean no_number) {
-		this.no_number = no_number;
+	public void setNoNumber(boolean noNumber) {
+		this.noNumber = noNumber;
 	}
 
 	public String getDs_complement() {
@@ -106,18 +119,39 @@ public class AddressModel implements Serializable{
 	public void setDs_complement(String ds_complement) {
 		this.ds_complement = ds_complement;
 	}
+
+	public StateModel getStateModel() {
+		return stateModel;
+	}
+
+	public void setStateModel(StateModel stateModel) {
+		this.stateModel = stateModel;
+	}
+
+	public CityModel getCityModel() {
+		return cityModel;
+	}
+
+	public void setCityModel(CityModel cityModel) {
+		this.cityModel = cityModel;
+	}
+
+	public DistrictModel getDistrictModel() {
+		return districtModel;
+	}
+
+	public void setDistrictModel(DistrictModel districtModel) {
+		this.districtModel = districtModel;
+	}
+
+	public GeneralDataModel getGeneralDataModel() {
+		return generalDataModel;
+	}
+
+	public void setGeneralDataModel(GeneralDataModel generalDataModel) {
+		this.generalDataModel = generalDataModel;
+	}
 	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
-	private StateModel stateModel;
 	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
-	private CityModel cityModel;
-	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="addressModel")
-	private DistrictModel districtModel;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="general_data_id")
-	private GeneralDataModel generalDataModel;
 	
 }

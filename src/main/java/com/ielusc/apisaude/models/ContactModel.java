@@ -28,7 +28,7 @@ public class ContactModel implements Serializable {
 	@Column(length=25)
 	private String nr_cellPhone;
 	
-	@Column(length=5)
+	@Column
 	private boolean whatsapp;
 	
 	@Column(length=40)
@@ -40,11 +40,21 @@ public class ContactModel implements Serializable {
 	@Column(length=40)
 	private String nm_emergencyPhone1;
 	
+	@Column (length=10)
+	private String ds_identification1;
+	
 	@Column(length=25)
 	private String nr_emergencyPhone2;
 	
 	@Column(length=40)
 	private String nm_emergencyPhone2;
+	
+	@Column (length=10)
+	private String ds_identification2;
+
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="general_data_id")
+	private GeneralDataModel generalDataModel;
 
 	public long getId() {
 		return id;
@@ -102,6 +112,14 @@ public class ContactModel implements Serializable {
 		this.nm_emergencyPhone1 = nm_emergencyPhone1;
 	}
 
+	public String getDs_identification1() {
+		return ds_identification1;
+	}
+
+	public void setDs_identification1(String ds_identification1) {
+		this.ds_identification1 = ds_identification1;
+	}
+
 	public String getNr_emergencyPhone2() {
 		return nr_emergencyPhone2;
 	}
@@ -118,8 +136,21 @@ public class ContactModel implements Serializable {
 		this.nm_emergencyPhone2 = nm_emergencyPhone2;
 	}
 
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="general_data_id")
-	private GeneralDataModel generalDataModel;
-	
+	public String getDs_identification2() {
+		return ds_identification2;
+	}
+
+	public void setDs_identification2(String ds_identification2) {
+		this.ds_identification2 = ds_identification2;
+	}
+
+	public GeneralDataModel getGeneralDataModel() {
+		return generalDataModel;
+	}
+
+	public void setGeneralDataModel(GeneralDataModel generalDataModel) {
+		this.generalDataModel = generalDataModel;
+	}
+
+
 }

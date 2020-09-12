@@ -24,6 +24,10 @@ public class CityModel implements Serializable{
 	
 	@Column(length=60)
 	private String ds_city;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="address_id")
+	private AddressModel addressModel;
 
 	public long getId() {
 		return id;
@@ -40,9 +44,13 @@ public class CityModel implements Serializable{
 	public void setDs_city(String ds_city) {
 		this.ds_city = ds_city;
 	}
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="address_id")
-	private AddressModel addressModel;
+
+	public AddressModel getAddressModel() {
+		return addressModel;
+	}
+
+	public void setAddressModel(AddressModel addressModel) {
+		this.addressModel = addressModel;
+	}
 	
 }

@@ -28,12 +28,12 @@ public class GeneralDataController {
 	GeneralDataRepository generalDataRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<GeneralDataModel>> getAllGeneralDatas(){
-		List<GeneralDataModel> generalDatasList = generalDataRepository.findAll();
-		if(generalDatasList.isEmpty()) {
+	public ResponseEntity<List<GeneralDataModel>> getAllGeneralData(){
+		List<GeneralDataModel> generalDataList = generalDataRepository.findAll();
+		if(generalDataList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
-			return new ResponseEntity<List<GeneralDataModel>>(generalDatasList, HttpStatus.OK);
+			return new ResponseEntity<List<GeneralDataModel>>(generalDataList, HttpStatus.OK);
 		}
 	}
 	

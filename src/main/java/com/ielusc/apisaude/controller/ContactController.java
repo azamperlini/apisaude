@@ -20,7 +20,7 @@ import com.ielusc.apisaude.models.ContactModel;
 import com.ielusc.apisaude.repository.ContactRepository;
 
 @RestController
-@RequestMapping(value="/api-saude/contacts")
+@RequestMapping(value="/api-saude/contact")
 public class ContactController {
 	
 	@Autowired
