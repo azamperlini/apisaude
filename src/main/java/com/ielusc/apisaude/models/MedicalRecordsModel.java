@@ -25,9 +25,10 @@ public class MedicalRecordsModel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(length=10)
 	private long nr_medicalRecord = 2019;
-
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="medicalRecordsModel")
-	private GeneralDataModel generalDataModel;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private UserModel userModel;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="medicalRecordsModel")
 	private BloodModel bloodModel;
@@ -37,10 +38,6 @@ public class MedicalRecordsModel implements Serializable{
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="medicalRecordsModel")
 	private MedicineForContinuousUseModel medicineForContinuousUseModel;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private UserModel userModel;
 
 	public long getId() {
 		return id;
@@ -58,12 +55,12 @@ public class MedicalRecordsModel implements Serializable{
 		this.nr_medicalRecord = nr_medicalRecord;
 	}
 
-	public GeneralDataModel getGeneralDataModel() {
-		return generalDataModel;
+	public UserModel getUserModel() {
+		return userModel;
 	}
 
-	public void setGeneralDataModel(GeneralDataModel generalDataModel) {
-		this.generalDataModel = generalDataModel;
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
 	}
 
 	public BloodModel getBloodModel() {
@@ -90,12 +87,5 @@ public class MedicalRecordsModel implements Serializable{
 		this.medicineForContinuousUseModel = medicineForContinuousUseModel;
 	}
 
-	public UserModel getUserModel() {
-		return userModel;
-	}
-
-	public void setUserModel(UserModel userModel) {
-		this.userModel = userModel;
-	}
 	
 }

@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
+		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(HttpMethod.POST, SIGN_UP_URL,
 						"/swagger-resources",
 						"/swagger-resourses/**",
@@ -40,6 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+		auth.inMemoryAuthentication()
+        .passwordEncoder(bCryptPasswordEncoder)
+        .withUser("admin")
+        .password(bCryptPasswordEncoder.encode("zampaAdmin"))
+        .roles("USER");
 	}
 
 }

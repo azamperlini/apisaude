@@ -43,6 +43,9 @@ public class UserModel implements Serializable{
 	private Permission permission;
 
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private GeneralDataModel generalDataModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
 	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getIdUser() {

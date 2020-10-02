@@ -59,15 +59,15 @@ public class GeneralDataModel implements Serializable{
 	@Column(length=40)
 	private String profileImage;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private UserModel userModel;
+	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
 	private AddressModel addressModel;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")
 	private ContactModel contactModel;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="medicalRecords_id")
-	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getId() {
 		return id;
@@ -173,6 +173,14 @@ public class GeneralDataModel implements Serializable{
 		this.profileImage = profileImage;
 	}
 
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
 	public AddressModel getAddressModel() {
 		return addressModel;
 	}
@@ -188,14 +196,5 @@ public class GeneralDataModel implements Serializable{
 	public void setContactModel(ContactModel contactModel) {
 		this.contactModel = contactModel;
 	}
-
-	public MedicalRecordsModel getMedicalRecordsModel() {
-		return medicalRecordsModel;
-	}
-
-	public void setMedicalRecordsModel(MedicalRecordsModel medicalRecordsModel) {
-		this.medicalRecordsModel = medicalRecordsModel;
-	}
-
 
 }

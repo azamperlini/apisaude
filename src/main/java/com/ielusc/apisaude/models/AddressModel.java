@@ -21,9 +21,6 @@ public class AddressModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	
-	@Column(length=25)
-	private String ds_country;
 
 	@Column(length=10)
 	private String zip_cod;
@@ -62,14 +59,6 @@ public class AddressModel implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getDs_country() {
-		return ds_country;
-	}
-
-	public void setDs_country(String ds_country) {
-		this.ds_country = ds_country;
 	}
 
 	public String getZip_cod() {
