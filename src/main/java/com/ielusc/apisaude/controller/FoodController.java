@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ielusc.apisaude.models.FoodModel;
 import com.ielusc.apisaude.repository.FoodRepository;
 
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/api-saude/food")
+@CrossOrigin(origins="*")
 public class FoodController {
 	
 	@Autowired
 	FoodRepository foodRepository;
 	
 	@GetMapping
+	@ApiOperation(value="Retorna a lista de alimentos")
 	public ResponseEntity<List<FoodModel>> getAllFood(){
 		List<FoodModel> foodList = foodRepository.findAll();
 		if(foodList.isEmpty()) {
@@ -38,6 +42,7 @@ public class FoodController {
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value="Retorna um alimento")
 	public ResponseEntity<FoodModel> getOneFood(@PathVariable(value="id")long id) {
 		Optional<FoodModel> foodOne = foodRepository.findById(id);
 		if(!foodOne.isPresent()) {
@@ -48,6 +53,7 @@ public class FoodController {
 	}
 	
 	@PostMapping
+	@ApiOperation(value="Registra um alimento")
 	public ResponseEntity<FoodModel> saveFood(@RequestBody @Valid FoodModel food) {
 		
 		return new ResponseEntity<FoodModel>(foodRepository.save(food), HttpStatus.CREATED);
@@ -59,6 +65,7 @@ public class FoodController {
 	//}
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value="Atualiza um alimento")
 	public ResponseEntity<FoodModel> updateFood(@PathVariable(value="id") long id, @RequestBody @Valid FoodModel food) {
 		Optional<FoodModel> foodOne = foodRepository.findById(id);
 		if(!foodOne.isPresent()) {

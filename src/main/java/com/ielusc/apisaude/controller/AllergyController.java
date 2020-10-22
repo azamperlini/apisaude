@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ielusc.apisaude.models.AllergyModel;
 import com.ielusc.apisaude.repository.AllergyRepository;
 
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/api-saude/allergy")
+@CrossOrigin(origins="*")
 public class AllergyController {
 	
 	@Autowired
 	AllergyRepository allergyRepository;
 	
 	@GetMapping
+	@ApiOperation(value="Retorna a lista de informações sobre alergias")
 	public ResponseEntity<List<AllergyModel>> getAllAllergy(){
 		List<AllergyModel> allergyList = allergyRepository.findAll();
 		if(allergyList.isEmpty()) {
@@ -38,6 +42,7 @@ public class AllergyController {
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value="Retorna informações sobre alergias")
 	public ResponseEntity<AllergyModel> getOneAllergy(@PathVariable(value="id")long id) {
 		Optional<AllergyModel> allergyOne = allergyRepository.findById(id);
 		if(!allergyOne.isPresent()) {
@@ -48,6 +53,7 @@ public class AllergyController {
 	}
 	
 	@PostMapping
+	@ApiOperation(value="Registra informações sobre alergias")
 	public ResponseEntity<AllergyModel> saveAllergy(@RequestBody @Valid AllergyModel allergy) {
 		
 		return new ResponseEntity<AllergyModel>(allergyRepository.save(allergy), HttpStatus.CREATED);
@@ -59,6 +65,8 @@ public class AllergyController {
 	//}
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value="Atualiza o registro de informações sobre alergia")
+
 	public ResponseEntity<AllergyModel> updateAllergy(@PathVariable(value="id") long id, @RequestBody @Valid AllergyModel allergy) {
 		Optional<AllergyModel> allergyOne = allergyRepository.findById(id);
 		if(!allergyOne.isPresent()) {

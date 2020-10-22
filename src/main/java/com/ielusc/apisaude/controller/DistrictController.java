@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ielusc.apisaude.models.DistrictModel;
 import com.ielusc.apisaude.repository.DistrictRepository;
 
+import io.swagger.annotations.ApiOperation;
+
 	@RestController
 	@RequestMapping(value="/api-saude/district")
+	@CrossOrigin(origins="*")
 	public class DistrictController {
 		
 		@Autowired
 		DistrictRepository districtRepository;
 		
 		@GetMapping
+		@ApiOperation(value="Retorna a lista de municípios")
 		public ResponseEntity<List<DistrictModel>> getAllDistricts(){
 			List<DistrictModel> districtsList = districtRepository.findAll();
 			if(districtsList.isEmpty()) {
@@ -37,6 +42,7 @@ import com.ielusc.apisaude.repository.DistrictRepository;
 		}
 		
 		@GetMapping("/{id}")
+		@ApiOperation(value="Retorna um município")
 		public ResponseEntity<DistrictModel> getOneDistrict(@PathVariable(value="id")long id) {
 			Optional<DistrictModel> districtOne = districtRepository.findById(id);
 			if(!districtOne.isPresent()) {
@@ -47,6 +53,7 @@ import com.ielusc.apisaude.repository.DistrictRepository;
 		}
 		
 		@PostMapping
+		@ApiOperation(value="Registra um município")
 		public ResponseEntity<DistrictModel> saveDistrict(@RequestBody @Valid DistrictModel district) {
 			
 			return new ResponseEntity<DistrictModel>(districtRepository.save(district), HttpStatus.CREATED);
@@ -58,6 +65,7 @@ import com.ielusc.apisaude.repository.DistrictRepository;
 		//}
 		
 		@PutMapping("/{id}")
+		@ApiOperation(value="Atualiza um município")
 		public ResponseEntity<DistrictModel> updateDistrict(@PathVariable(value="id") long id, @RequestBody @Valid DistrictModel district) {
 			Optional<DistrictModel> districtOne = districtRepository.findById(id);
 			if(!districtOne.isPresent()) {

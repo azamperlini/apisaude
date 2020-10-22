@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ielusc.apisaude.models.MedicineForContinuousUseModel;
 import com.ielusc.apisaude.repository.MedicineForContinuousUseRepository;
 
-
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/api-saude/medicinecontinuous")
+@CrossOrigin(origins="*")
 public class MedicineForContinuousUseController {
 	
 	@Autowired
 	MedicineForContinuousUseRepository medicineForContinuousUseRepository;
 	
 	@GetMapping
+	@ApiOperation(value="Retorna a lista de informações sobre uso de medicamentos")
 	public ResponseEntity<List<MedicineForContinuousUseModel>> getAllMedicine(){
 		List<MedicineForContinuousUseModel> medicineForContinuousUseList = medicineForContinuousUseRepository.findAll();
 		if(medicineForContinuousUseList.isEmpty()) {
@@ -39,6 +42,7 @@ public class MedicineForContinuousUseController {
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value="Retorna informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> getOneMedicineForContinuousUse(@PathVariable(value="id")long id) {
 		Optional<MedicineForContinuousUseModel> medicineForContinuousUseOne = medicineForContinuousUseRepository.findById(id);
 		if(!medicineForContinuousUseOne.isPresent()) {
@@ -49,6 +53,7 @@ public class MedicineForContinuousUseController {
 	}
 	
 	@PostMapping
+	@ApiOperation(value="Registra informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> saveMedicineForContinuousUse(@RequestBody @Valid MedicineForContinuousUseModel medicineForContinuousUse) {
 		
 		return new ResponseEntity<MedicineForContinuousUseModel>(medicineForContinuousUseRepository.save(medicineForContinuousUse), HttpStatus.CREATED);
@@ -60,6 +65,7 @@ public class MedicineForContinuousUseController {
 	//}
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value="Atualiza o registro de informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> updateMedicineForContinuousUse(@PathVariable(value="id") long id, @RequestBody @Valid MedicineForContinuousUseModel medicineForContinuousUse) {
 		Optional<MedicineForContinuousUseModel> medicineForContinuousUseOne = medicineForContinuousUseRepository.findById(id);
 		if(!medicineForContinuousUseOne.isPresent()) {

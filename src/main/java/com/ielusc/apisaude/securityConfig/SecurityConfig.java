@@ -28,10 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.POST, SIGN_UP_URL,
-						"/swagger-resources",
-						"/swagger-resourses/**",
-						"/swagger-ui.html").permitAll()
+		.antMatchers(HttpMethod.POST, SIGN_UP_URL,
+						"/v2/api-docs",
+			            "/swagger-resources/**",
+			            "/configuration/ui",
+			            "/configuration/security",
+			            "/swagger-ui.html",
+			            "/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -46,5 +49,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .password(bCryptPasswordEncoder.encode("zampaAdmin"))
         .roles("USER");
 	}
-
+	
 }

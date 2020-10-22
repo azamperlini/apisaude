@@ -38,9 +38,13 @@ public class UserModel implements Serializable{
 	@Column(length=60)
 	private String password;
 	
+	@Column
+	private boolean privacy;
+
 	private GeneralStatus status;
 	
 	private Permission permission;
+	
 
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
 	private GeneralDataModel generalDataModel;
@@ -88,6 +92,14 @@ public class UserModel implements Serializable{
 		this.password = password;
 	}
 
+	public boolean isPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(boolean privacy) {
+		this.privacy = privacy;
+	}
+
 	public GeneralStatus getStatus() {
 		return status;
 	}
@@ -102,6 +114,14 @@ public class UserModel implements Serializable{
 
 	public void setPermission(Permission permission) {
 		this.permission = permission;
+	}
+
+	public GeneralDataModel getGeneralDataModel() {
+		return generalDataModel;
+	}
+
+	public void setGeneralDataModel(GeneralDataModel generalDataModel) {
+		this.generalDataModel = generalDataModel;
 	}
 
 	public MedicalRecordsModel getMedicalRecordsModel() {
