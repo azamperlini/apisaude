@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.MedicineForContinuousUseRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/medicinecontinuous")
+@RequestMapping(value="/medicinecontinuous")
 @CrossOrigin(origins="*")
 public class MedicineForContinuousUseController {
 	
 	@Autowired
 	MedicineForContinuousUseRepository medicineForContinuousUseRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de informações sobre uso de medicamentos")
 	public ResponseEntity<List<MedicineForContinuousUseModel>> getAllMedicine(){
 		List<MedicineForContinuousUseModel> medicineForContinuousUseList = medicineForContinuousUseRepository.findAll();
@@ -41,7 +41,7 @@ public class MedicineForContinuousUseController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> getOneMedicineForContinuousUse(@PathVariable(value="id")long id) {
 		Optional<MedicineForContinuousUseModel> medicineForContinuousUseOne = medicineForContinuousUseRepository.findById(id);
@@ -52,19 +52,19 @@ public class MedicineForContinuousUseController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> saveMedicineForContinuousUse(@RequestBody @Valid MedicineForContinuousUseModel medicineForContinuousUse) {
 		
 		return new ResponseEntity<MedicineForContinuousUseModel>(medicineForContinuousUseRepository.save(medicineForContinuousUse), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteMedicine(@PathVariable(value="id") long id, @RequestBody @Valid MedicineForContinuousUseModel medicineForContinuousUse) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza o registro de informações sobre uso de medicamentos")
 	public ResponseEntity<MedicineForContinuousUseModel> updateMedicineForContinuousUse(@PathVariable(value="id") long id, @RequestBody @Valid MedicineForContinuousUseModel medicineForContinuousUse) {
 		Optional<MedicineForContinuousUseModel> medicineForContinuousUseOne = medicineForContinuousUseRepository.findById(id);

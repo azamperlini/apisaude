@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.StateRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/state")
+@RequestMapping(value="/state")
 @CrossOrigin(origins="*")
 public class StateController {
 	
 	@Autowired
 	StateRepository stateRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de Estados")
 	public ResponseEntity<List<StateModel>> getAllState(){
 		List<StateModel> stateList = stateRepository.findAll();
@@ -41,7 +41,7 @@ public class StateController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um Estado")
 	public ResponseEntity<StateModel> getOneState(@PathVariable(value="id")long id) {
 		Optional<StateModel> stateOne = stateRepository.findById(id);
@@ -52,19 +52,19 @@ public class StateController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra um Estado")
 	public ResponseEntity<StateModel> saveState(@RequestBody @Valid StateModel state) {
 		
 		return new ResponseEntity<StateModel>(stateRepository.save(state), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteState(@PathVariable(value="id") long id, @RequestBody @Valid StateModel state) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um Estado")
 	public ResponseEntity<StateModel> updateState(@PathVariable(value="id") long id, @RequestBody @Valid StateModel state) {
 		Optional<StateModel> stateOne = stateRepository.findById(id);

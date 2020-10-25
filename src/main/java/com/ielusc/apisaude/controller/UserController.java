@@ -27,7 +27,7 @@ import com.ielusc.apisaude.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/user")
+@RequestMapping(value="/user")
 @CrossOrigin(origins="*")
 public class UserController {
 	
@@ -37,7 +37,7 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de usuários")
 	public ResponseEntity<List<UserModel>> getAllUsers(){
 		List<UserModel> usersList = userRepository.findAll();
@@ -48,7 +48,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um usuário")
 	public ResponseEntity<UserModel> getOneUser(@PathVariable(value="id")long id) {
 		Optional<UserModel> userOne = userRepository.findByIdUser(id);
@@ -59,7 +59,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra um usuário")
 	public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserModel user) {
 		String password = user.getPassword();
@@ -71,7 +71,7 @@ public class UserController {
 		return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Apaga um usuário")
 	public ResponseEntity<?> deleteUser(@PathVariable(value="id") long id, @RequestBody @Valid UserModel user) {
 		Optional<UserModel> userOne =  userRepository.findByIdUserAndStatus(id, GeneralStatus.ACTIVE);
@@ -83,7 +83,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um usuário")
 	public ResponseEntity<UserModel> updateUser(@PathVariable(value="id") long id, @RequestBody @Valid UserModel user) {
 		Optional<UserModel> userOne = userRepository.findByIdUser(id);
@@ -95,7 +95,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/{id}/permission")
+	@PutMapping(value="/{id}/permission", produces="application/json")
 	@ApiOperation(value="Modifica a permissão de um usuário")
 	public ResponseEntity<UserModel> updateUserPermission(@PathVariable(value="id") long id, @RequestBody @Valid Permission permission) {
 		Optional<UserModel> userOne = userRepository.findByIdUser(id);

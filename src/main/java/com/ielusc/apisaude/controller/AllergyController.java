@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.AllergyRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/allergy")
+@RequestMapping(value="/allergy")
 @CrossOrigin(origins="*")
 public class AllergyController {
 	
 	@Autowired
 	AllergyRepository allergyRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de informações sobre alergias")
 	public ResponseEntity<List<AllergyModel>> getAllAllergy(){
 		List<AllergyModel> allergyList = allergyRepository.findAll();
@@ -41,7 +41,7 @@ public class AllergyController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna informações sobre alergias")
 	public ResponseEntity<AllergyModel> getOneAllergy(@PathVariable(value="id")long id) {
 		Optional<AllergyModel> allergyOne = allergyRepository.findById(id);
@@ -52,19 +52,19 @@ public class AllergyController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra informações sobre alergias")
 	public ResponseEntity<AllergyModel> saveAllergy(@RequestBody @Valid AllergyModel allergy) {
 		
 		return new ResponseEntity<AllergyModel>(allergyRepository.save(allergy), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteAllergy(@PathVariable(value="id") long id, @RequestBody @Valid AllergyModel allergy) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza o registro de informações sobre alergia")
 
 	public ResponseEntity<AllergyModel> updateAllergy(@PathVariable(value="id") long id, @RequestBody @Valid AllergyModel allergy) {

@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.AddressRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/address")
+@RequestMapping(value="/address")
 @CrossOrigin(origins="*")
 public class AddressController {
 	
 	@Autowired
 	AddressRepository addressRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de endereços")
 	public ResponseEntity<List<AddressModel>> getAllAddress(){
 		List<AddressModel> addressList = addressRepository.findAll();
@@ -41,7 +41,7 @@ public class AddressController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um endereço")
 	public ResponseEntity<AddressModel> getOneAddress(@PathVariable(value="id")long id) {
 		Optional<AddressModel> addressOne = addressRepository.findById(id);
@@ -52,19 +52,19 @@ public class AddressController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra um endereço")
 	public ResponseEntity<AddressModel> saveAddress(@RequestBody @Valid AddressModel address) {
 		
 		return new ResponseEntity<AddressModel>(addressRepository.save(address), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteAddress(@PathVariable(value="id") long id, @RequestBody @Valid AddressModel address) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um endereço")
 	public ResponseEntity<AddressModel> updateAddress(@PathVariable(value="id") long id, @RequestBody @Valid AddressModel address) {
 		Optional<AddressModel> addressOne = addressRepository.findById(id);

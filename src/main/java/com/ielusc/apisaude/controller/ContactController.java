@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.ContactRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/contact")
+@RequestMapping(value="/contact")
 @CrossOrigin(origins="*")
 public class ContactController {
 	
 	@Autowired
 	ContactRepository contactRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de informações sobre contatos")
 	public ResponseEntity<List<ContactModel>> getAllContacts(){
 		List<ContactModel> contactsList = contactRepository.findAll();
@@ -41,7 +41,7 @@ public class ContactController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna informações sobre contato")
 	public ResponseEntity<ContactModel> getOneContact(@PathVariable(value="id")long id) {
 		Optional<ContactModel> contactOne = contactRepository.findById(id);
@@ -52,19 +52,19 @@ public class ContactController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra informações sobre contatos")
 	public ResponseEntity<ContactModel> saveContact(@RequestBody @Valid ContactModel contact) {
 		
 		return new ResponseEntity<ContactModel>(contactRepository.save(contact), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteContact(@PathVariable(value="id") long id, @RequestBody @Valid ContactModel contact) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um registro de informações sobre contatos")
 	public ResponseEntity<ContactModel> updateContact(@PathVariable(value="id") long id, @RequestBody @Valid ContactModel contact) {
 		Optional<ContactModel> contactOne = contactRepository.findById(id);

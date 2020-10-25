@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.DistrictRepository;
 import io.swagger.annotations.ApiOperation;
 
 	@RestController
-	@RequestMapping(value="/api-saude/district")
+	@RequestMapping(value="/district")
 	@CrossOrigin(origins="*")
 	public class DistrictController {
 		
 		@Autowired
 		DistrictRepository districtRepository;
 		
-		@GetMapping
+		@GetMapping(produces="application/json")
 		@ApiOperation(value="Retorna a lista de municípios")
 		public ResponseEntity<List<DistrictModel>> getAllDistricts(){
 			List<DistrictModel> districtsList = districtRepository.findAll();
@@ -41,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
 			}
 		}
 		
-		@GetMapping("/{id}")
+		@GetMapping(value="/{id}", produces="application/json")
 		@ApiOperation(value="Retorna um município")
 		public ResponseEntity<DistrictModel> getOneDistrict(@PathVariable(value="id")long id) {
 			Optional<DistrictModel> districtOne = districtRepository.findById(id);
@@ -52,19 +52,19 @@ import io.swagger.annotations.ApiOperation;
 			}
 		}
 		
-		@PostMapping
+		@PostMapping(produces="application/json")
 		@ApiOperation(value="Registra um município")
 		public ResponseEntity<DistrictModel> saveDistrict(@RequestBody @Valid DistrictModel district) {
 			
 			return new ResponseEntity<DistrictModel>(districtRepository.save(district), HttpStatus.CREATED);
 		}
 			
-		//@DeleteMapping("/{id}")
+		//@DeleteMapping(value="/{id}", produces="application/json")
 		//public ResponseEntity<?> deleteDistrict(@PathVariable(value="id") long id, @RequestBody @Valid DistrictModel district) {
 
 		//}
 		
-		@PutMapping("/{id}")
+		@PutMapping(value="/{id}", produces="application/json")
 		@ApiOperation(value="Atualiza um município")
 		public ResponseEntity<DistrictModel> updateDistrict(@PathVariable(value="id") long id, @RequestBody @Valid DistrictModel district) {
 			Optional<DistrictModel> districtOne = districtRepository.findById(id);

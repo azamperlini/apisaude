@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.MedicineRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/medicine")
+@RequestMapping(value="/medicine")
 @CrossOrigin(origins="*")
 public class MedicineController {
 	
 	@Autowired
 	MedicineRepository medicineRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de medicamentos")
 	public ResponseEntity<List<MedicineModel>> getAllMedicine(){
 		List<MedicineModel> medicineList = medicineRepository.findAll();
@@ -41,7 +41,7 @@ public class MedicineController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um medicamento")
 	public ResponseEntity<MedicineModel> getOneMedicine(@PathVariable(value="id")long id) {
 		Optional<MedicineModel> medicineOne = medicineRepository.findById(id);
@@ -52,19 +52,19 @@ public class MedicineController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra um medicamento")
 	public ResponseEntity<MedicineModel> saveMedicine(@RequestBody @Valid MedicineModel medicine) {
 		
 		return new ResponseEntity<MedicineModel>(medicineRepository.save(medicine), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteMedicine(@PathVariable(value="id") long id, @RequestBody @Valid MedicineModel medicine) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um medicamento")
 	public ResponseEntity<MedicineModel> updateMedicine(@PathVariable(value="id") long id, @RequestBody @Valid MedicineModel medicine) {
 		Optional<MedicineModel> medicineOne = medicineRepository.findById(id);

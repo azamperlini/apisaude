@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.CityRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/city")
+@RequestMapping(value="/city")
 @CrossOrigin(origins="*")
 public class CityController {
 	
 	@Autowired
 	CityRepository cityRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de registros de cidades")
 	public ResponseEntity<List<CityModel>> getAllCity(){
 		List<CityModel> cityList = cityRepository.findAll();
@@ -41,7 +41,7 @@ public class CityController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna o registro de uma cidade")
 	public ResponseEntity<CityModel> getOneCity(@PathVariable(value="id")long id) {
 		Optional<CityModel> cityOne = cityRepository.findById(id);
@@ -52,19 +52,19 @@ public class CityController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra uma cidade")
 	public ResponseEntity<CityModel> saveCity(@RequestBody @Valid CityModel city) {
 		
 		return new ResponseEntity<CityModel>(cityRepository.save(city), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteCity(@PathVariable(value="id") long id, @RequestBody @Valid CityModel city) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza o registro de uma cidade")
 	public ResponseEntity<CityModel> updateCity(@PathVariable(value="id") long id, @RequestBody @Valid CityModel city) {
 		Optional<CityModel> cityOne = cityRepository.findById(id);

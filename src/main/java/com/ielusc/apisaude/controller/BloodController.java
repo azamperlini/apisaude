@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.BloodRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/blood")
+@RequestMapping(value="/blood")
 @CrossOrigin(origins="*")
 public class BloodController {
 	
 	@Autowired
 	BloodRepository bloodRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de registros de informações sanguineas")
 	public ResponseEntity<List<BloodModel>> getAllBlood(){
 		List<BloodModel> bloodList = bloodRepository.findAll();
@@ -41,7 +41,7 @@ public class BloodController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um registro de informações sanguineas")
 	public ResponseEntity<BloodModel> getOneBlood(@PathVariable(value="id")long id) {
 		Optional<BloodModel> bloodOne = bloodRepository.findById(id);
@@ -52,19 +52,19 @@ public class BloodController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra informações sanguineas")
 	public ResponseEntity<BloodModel> saveBlood(@RequestBody @Valid BloodModel blood) {
 		
 		return new ResponseEntity<BloodModel>(bloodRepository.save(blood), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteBlood(@PathVariable(value="id") long id, @RequestBody @Valid BloodModel blood) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um registro de informações sanguineas")
 	public ResponseEntity<BloodModel> updateBlood(@PathVariable(value="id") long id, @RequestBody @Valid BloodModel blood) {
 		Optional<BloodModel> bloodOne = bloodRepository.findById(id);

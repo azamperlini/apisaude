@@ -24,7 +24,7 @@ import com.ielusc.apisaude.repository.GeneralDataRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/generaldata")
+@RequestMapping(value="/generaldata")
 @CrossOrigin(origins="*")
 @Qualifier
 public class GeneralDataController {
@@ -32,7 +32,7 @@ public class GeneralDataController {
 	@Autowired
 	GeneralDataRepository generalDataRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de Dados Gerais de usuários")
 	public ResponseEntity<List<GeneralDataModel>> getAllGeneralData(){
 		List<GeneralDataModel> generalDataList = generalDataRepository.findAll();
@@ -43,7 +43,7 @@ public class GeneralDataController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um registro de Dados Gerais de um usuário")
 	public ResponseEntity<GeneralDataModel> getOneGeneralData(@PathVariable(value="id")long id) {
 		Optional<GeneralDataModel> generalDataOne = generalDataRepository.findById(id);
@@ -54,7 +54,7 @@ public class GeneralDataController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra Dados Gerais de um usuário")
 	public ResponseEntity<GeneralDataModel> saveGeneralData(@RequestBody @Valid GeneralDataModel generalData) {
 		
@@ -66,7 +66,7 @@ public class GeneralDataController {
 		
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza o registro de Dados Gerais de um usuário")
 	public ResponseEntity<GeneralDataModel> updateGeneralData(@PathVariable(value="id") long id, @RequestBody @Valid GeneralDataModel generalData) {
 		Optional<GeneralDataModel> generalDataOne = generalDataRepository.findById(id);

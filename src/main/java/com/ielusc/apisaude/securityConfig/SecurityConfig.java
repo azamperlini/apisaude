@@ -29,12 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.POST, SIGN_UP_URL,
-						"/v2/api-docs",
-			            "/swagger-resources/**",
 			            "/configuration/ui",
-			            "/configuration/security",
-			            "/swagger-ui.html",
-			            "/webjars/**").permitAll()
+			            "/configuration/security").permitAll()
+				.antMatchers(HttpMethod.GET, "/").permitAll()
+				.antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
+				.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+				.antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))

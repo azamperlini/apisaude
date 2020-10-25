@@ -23,14 +23,14 @@ import com.ielusc.apisaude.repository.FoodRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api-saude/food")
+@RequestMapping(value="/food")
 @CrossOrigin(origins="*")
 public class FoodController {
 	
 	@Autowired
 	FoodRepository foodRepository;
 	
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ApiOperation(value="Retorna a lista de alimentos")
 	public ResponseEntity<List<FoodModel>> getAllFood(){
 		List<FoodModel> foodList = foodRepository.findAll();
@@ -41,7 +41,7 @@ public class FoodController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um alimento")
 	public ResponseEntity<FoodModel> getOneFood(@PathVariable(value="id")long id) {
 		Optional<FoodModel> foodOne = foodRepository.findById(id);
@@ -52,19 +52,19 @@ public class FoodController {
 		}
 	}
 	
-	@PostMapping
+	@PostMapping(produces="application/json")
 	@ApiOperation(value="Registra um alimento")
 	public ResponseEntity<FoodModel> saveFood(@RequestBody @Valid FoodModel food) {
 		
 		return new ResponseEntity<FoodModel>(foodRepository.save(food), HttpStatus.CREATED);
 	}
 		
-	//@DeleteMapping("/{id}")
+	//@DeleteMapping(value="/{id}", produces="application/json")
 	//public ResponseEntity<?> deleteFood(@PathVariable(value="id") long id, @RequestBody @Valid FoodModel food) {
 
 	//}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um alimento")
 	public ResponseEntity<FoodModel> updateFood(@PathVariable(value="id") long id, @RequestBody @Valid FoodModel food) {
 		Optional<FoodModel> foodOne = foodRepository.findById(id);
