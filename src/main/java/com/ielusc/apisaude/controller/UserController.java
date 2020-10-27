@@ -51,7 +51,7 @@ public class UserController {
 	@GetMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Retorna um usuário")
 	public ResponseEntity<UserModel> getOneUser(@PathVariable(value="id")long id) {
-		Optional<UserModel> userOne = userRepository.findByIdUser(id);
+		Optional<UserModel> userOne = userRepository.findById(id);
 		if(!userOne.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
@@ -74,7 +74,7 @@ public class UserController {
 	@DeleteMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Apaga um usuário")
 	public ResponseEntity<?> deleteUser(@PathVariable(value="id") long id, @RequestBody @Valid UserModel user) {
-		Optional<UserModel> userOne =  userRepository.findByIdUserAndStatus(id, GeneralStatus.ACTIVE);
+		Optional<UserModel> userOne =  userRepository.findByIdAndStatus(id, GeneralStatus.ACTIVE);
 		if(!userOne.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
@@ -86,11 +86,11 @@ public class UserController {
 	@PutMapping(value="/{id}", produces="application/json")
 	@ApiOperation(value="Atualiza um usuário")
 	public ResponseEntity<UserModel> updateUser(@PathVariable(value="id") long id, @RequestBody @Valid UserModel user) {
-		Optional<UserModel> userOne = userRepository.findByIdUser(id);
+		Optional<UserModel> userOne = userRepository.findById(id);
 		if(!userOne.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
-			user.setIdUser(userOne.get().getIdUser());
+			user.setId(userOne.get().getId());
 			return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.OK);
 		}
 	}
@@ -98,7 +98,7 @@ public class UserController {
 	@PutMapping(value="/{id}/permission", produces="application/json")
 	@ApiOperation(value="Modifica a permissão de um usuário")
 	public ResponseEntity<UserModel> updateUserPermission(@PathVariable(value="id") long id, @RequestBody @Valid Permission permission) {
-		Optional<UserModel> userOne = userRepository.findByIdUser(id);
+		Optional<UserModel> userOne = userRepository.findById(id);
 		if(!userOne.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {

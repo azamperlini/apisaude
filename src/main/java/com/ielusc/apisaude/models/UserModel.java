@@ -24,7 +24,7 @@ public class UserModel implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long idUser;
+	private long id;
 	
 	@Column(unique = true)
 	private String userName;
@@ -52,12 +52,12 @@ public class UserModel implements Serializable{
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
 	private MedicalRecordsModel medicalRecordsModel;
 
-	public long getIdUser() {
-		return idUser;
+	public long getId() {
+		return id;
 	}
 
-	public void setIdUser(long idUser) {
-		this.idUser = idUser;
+	public void setId(long idUser) {
+		this.id = idUser;
 	}
 
 	public String getUserName() {

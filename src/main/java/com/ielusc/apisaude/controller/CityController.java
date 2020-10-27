@@ -31,7 +31,7 @@ public class CityController {
 	CityRepository cityRepository;
 	
 	@GetMapping(produces="application/json")
-	@ApiOperation(value="Retorna a lista de registros de cidades")
+	@ApiOperation(value="Retorna a lista de cidades")
 	public ResponseEntity<List<CityModel>> getAllCity(){
 		List<CityModel> cityList = cityRepository.findAll();
 		if(cityList.isEmpty()) {

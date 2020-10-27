@@ -11,9 +11,9 @@ import com.ielusc.apisaude.models.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long>{
 	
-	Optional<UserModel> findByIdUser(long id);
+	Optional<UserModel> findById(long id);
 	
-	Optional<UserModel> findByIdUserAndStatus(long id, GeneralStatus status);
+	Optional<UserModel> findByIdAndStatus(long id, GeneralStatus status);
 
 	Optional <UserModel> findByUserNameAndStatus(String username, GeneralStatus status);
 
