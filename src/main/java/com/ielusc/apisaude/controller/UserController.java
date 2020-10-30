@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ielusc.apisaude.helpers.GeneralStatus;
 import com.ielusc.apisaude.helpers.Permission;
+import com.ielusc.apisaude.models.MedicalRecordsModel;
 import com.ielusc.apisaude.models.UserModel;
 import com.ielusc.apisaude.repository.UserRepository;
 
@@ -30,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value="/user")
 @CrossOrigin(origins="*")
 public class UserController {
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -68,6 +69,9 @@ public class UserController {
 		user.setPassword(hashed);
 		user.setStatus(GeneralStatus.ACTIVE);
 		user.setPermission(Permission.PÚBLICO);
+		MedicalRecordsModel medicalRecordsModel = new MedicalRecordsModel();
+		user.setMedicalRecordsModel(medicalRecordsModel);
+		medicalRecordsModel.setUserModel(user);
 		return new ResponseEntity<UserModel>(userRepository.save(user), HttpStatus.CREATED);
 	}
 	

@@ -2,6 +2,7 @@ package com.ielusc.apisaude.models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class UserModel implements Serializable{
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
 	private GeneralDataModel generalDataModel;
 	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel", cascade=CascadeType.ALL)
 	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getId() {
