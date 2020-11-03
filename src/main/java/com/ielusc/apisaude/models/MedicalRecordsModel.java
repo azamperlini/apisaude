@@ -2,7 +2,6 @@ package com.ielusc.apisaude.models;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,21 +10,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="TB_MEDICALRECORDS")
+@TableGenerator(name="tab", initialValue=2019, allocationSize=50)
 public class MedicalRecordsModel implements Serializable{
-	
+		
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="tab")
 	private long id;
 	
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(length=10)
-	private long nr_medicalRecord = 2019;
+	//@GeneratedValue(strategy=GenerationType.AUTO)
+	//private long nr_medicalRecord;
 	
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private UserModel userModel;
@@ -47,13 +50,13 @@ public class MedicalRecordsModel implements Serializable{
 		this.id = id;
 	}
 
-	public long getNr_medicalRecord() {
-		return nr_medicalRecord;
-	}
-
-	public void setNr_medicalRecord(long nr_medicalRecord) {
-		this.nr_medicalRecord = nr_medicalRecord;
-	}
+//	public long getNr_medicalRecord() {
+//		return nr_medicalRecord;
+//	}
+//
+//	public void setNr_medicalRecord(long nr_medicalRecord) {
+//		this.nr_medicalRecord = nr_medicalRecord;
+//	}
 
 	public UserModel getUserModel() {
 		return userModel;

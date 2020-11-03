@@ -1,6 +1,8 @@
 package com.ielusc.apisaude.securityConfig;
 
 import com.ielusc.apisaude.security.JWTAuthorizationFilter;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,7 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
+import com.google.common.collect.ImmutableList;
 import com.ielusc.apisaude.security.JWTAuthenticationFilter;
 
 import static com.ielusc.apisaude.security.SecurityConstants.SIGN_UP_URL;
@@ -51,5 +57,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .password(bCryptPasswordEncoder.encode("zampaAdmin"))
         .roles("USER");
 	}
+	
+	@Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("OPTIONS");
+        configuration.addAllowedMethod("HEAD");
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("DELETE");
+        configuration.addAllowedMethod("PATCH");
+        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type","Access-Control-Request-Headers","Access-Control-Request-Method",
+                "Accept","Access-Control-Allow-Headers"));
+        configuration.setExposedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type","Access-Control-Request-Headers","Access-Control-Request-Method",
+                "Accept","Access-Control-Allow-Headers"));
+        source.registerCorsConfiguration("/**", configuration);
+        return new CorsFilter(source);
+    }
 	
 }
