@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ielusc.apisaude.helpers.GeneralStatus;
@@ -58,6 +60,8 @@ public class UserController {
 		}else {
 			return new ResponseEntity<UserModel>(userOne.get(), HttpStatus.OK);
 		}
+
+		
 	}
 	
 	@PostMapping(produces="application/json")
@@ -109,6 +113,17 @@ public class UserController {
 			userOne.get().setPermission(permission);
 			return new ResponseEntity<UserModel>(userRepository.save(userOne.get()), HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping(value = "/username", produces="application/json")
+	@ResponseBody
+	public ResponseEntity<UserModel> currentUserName(Authentication authentication) {
+		Optional<UserModel> user = userRepository.findByUserNameAndStatus(authentication.getName(), GeneralStatus.ACTIVE);
+			if(!user.isPresent()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}else {
+				return new ResponseEntity<UserModel>(user.get(), HttpStatus.OK);
+			}
 	}
 
 }
