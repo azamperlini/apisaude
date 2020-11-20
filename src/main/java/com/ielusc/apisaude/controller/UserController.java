@@ -117,6 +117,7 @@ public class UserController {
 	
 	@GetMapping(value = "/username", produces="application/json")
 	@ResponseBody
+	@ApiOperation(value="Retorna um usuário logado")
 	public ResponseEntity<UserModel> currentUserName(Authentication authentication) {
 		Optional<UserModel> user = userRepository.findByUserNameAndStatus(authentication.getName(), GeneralStatus.ACTIVE);
 			if(!user.isPresent()) {
