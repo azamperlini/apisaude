@@ -52,13 +52,22 @@ public class UserModel implements Serializable{
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel", cascade=CascadeType.ALL)
 	private MedicalRecordsModel medicalRecordsModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private AgendaModel agendaModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private RegisterIntershipModel registerIntershipModel;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="userModel")
+	private OccurrencesModel occurrencesModel;
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long idUser) {
-		this.id = idUser;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -131,6 +140,30 @@ public class UserModel implements Serializable{
 
 	public void setMedicalRecordsModel(MedicalRecordsModel medicalRecordsModel) {
 		this.medicalRecordsModel = medicalRecordsModel;
+	}
+
+	public AgendaModel getAgendaModel() {
+		return agendaModel;
+	}
+
+	public void setAgendaModel(AgendaModel agendaModel) {
+		this.agendaModel = agendaModel;
+	}
+
+	public RegisterIntershipModel getRegisterIntershipModel() {
+		return registerIntershipModel;
+	}
+
+	public void setRegisterIntershipModel(RegisterIntershipModel registerIntershipModel) {
+		this.registerIntershipModel = registerIntershipModel;
+	}
+
+	public OccurrencesModel getOccurrencesModel() {
+		return occurrencesModel;
+	}
+
+	public void setOccurrencesModel(OccurrencesModel occurrencesModel) {
+		this.occurrencesModel = occurrencesModel;
 	}
 	
 }
