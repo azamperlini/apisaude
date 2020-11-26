@@ -23,7 +23,7 @@ import com.ielusc.apisaude.repository.AgendaRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/schedules")
+@RequestMapping(value="/agenda")
 @CrossOrigin(origins="*")
 public class AgendaController {
 	
