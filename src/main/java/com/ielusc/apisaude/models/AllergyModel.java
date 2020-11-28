@@ -38,22 +38,22 @@ public class AllergyModel implements Serializable{
 	private boolean drugAllergyCondition;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="medicalRecords_id")
+	@JoinColumn(name="id_medicalRecords")
 	private MedicalRecordsModel medicalRecordsModel;
 	
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
         name = "Allergy_Medicine", 
-        joinColumns = { @JoinColumn(name = "allergy_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "medicine_id") }
+        joinColumns = { @JoinColumn(name = "id_allergy") }, 
+        inverseJoinColumns = { @JoinColumn(name = "id_medicine") }
     )
     Set<MedicineModel> medicineModel = new HashSet<>();
     
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
         name = "Allergy_Food", 
-        joinColumns = { @JoinColumn(name = "allergy_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "food_id") }
+        joinColumns = { @JoinColumn(name = "id_allergy") }, 
+        inverseJoinColumns = { @JoinColumn(name = "id_food") }
     )
     Set<FoodModel> foodModel = new HashSet<>();
 

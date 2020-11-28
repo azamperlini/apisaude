@@ -57,7 +57,7 @@ private static final long serialVersionUID = 1L;
 	private boolean knowsDonationTypes;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="medicalRecords_id")
+	@JoinColumn(name="id_medicalRecords")
 	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getId() {

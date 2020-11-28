@@ -35,7 +35,7 @@ public class OnDutyModel implements Serializable{
 	private String descripition;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="registerIntership_id")
+	@JoinColumn(name="id_registerIntership")
 	private RegisterIntershipModel registerIntershipModel;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="onDutyModel")

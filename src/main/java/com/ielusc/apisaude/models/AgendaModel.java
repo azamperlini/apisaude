@@ -42,7 +42,7 @@ public class AgendaModel implements Serializable{
 	private String contact;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="id_user")
 	private UserModel userModel;
 	
 	public long getId() {

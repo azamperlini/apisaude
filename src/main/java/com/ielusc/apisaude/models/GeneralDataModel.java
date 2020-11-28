@@ -60,7 +60,7 @@ public class GeneralDataModel implements Serializable{
 	private String profileImage;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="id_user")
 	private UserModel userModel;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="generalDataModel")

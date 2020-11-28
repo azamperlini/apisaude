@@ -30,7 +30,7 @@ public class MedicalRecordsModel implements Serializable{
 	
 	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="id_user")
 	private UserModel userModel;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="medicalRecordsModel")

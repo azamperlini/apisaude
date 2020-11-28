@@ -34,13 +34,13 @@ public class MedicineForContinuousUseModel implements Serializable{
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
         name = "MedicineForContinuousUse_Medicine", 
-        joinColumns = { @JoinColumn(name = "medicineForContinuousUse_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "medicine_id") }
+        joinColumns = { @JoinColumn(name = "id_medicineForContinuousUse") }, 
+        inverseJoinColumns = { @JoinColumn(name = "id_medicine") }
     )
     Set<MedicineModel> medicineModel = new HashSet<>();
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="medicalRecords_id")
+	@JoinColumn(name="id_medicalRecords")
 	private MedicalRecordsModel medicalRecordsModel;
 
 	public long getId() {

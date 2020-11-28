@@ -53,7 +53,7 @@ public class ContactModel implements Serializable {
 	private String ds_identification2;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="general_data_id")
+	@JoinColumn(name="id_generalData")
 	private GeneralDataModel generalDataModel;
 
 	public long getId() {

@@ -26,7 +26,7 @@ public class DistrictModel implements Serializable{
 	private String ds_district;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="address_id")
+	@JoinColumn(name="id_address")
 	private AddressModel addressModel;
 
 	public long getId() {

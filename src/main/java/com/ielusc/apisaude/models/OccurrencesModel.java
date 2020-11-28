@@ -36,11 +36,11 @@ public class OccurrencesModel implements Serializable{
 	private String descripition;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="onDuty_id")
+	@JoinColumn(name="id_onDuty")
 	private OnDutyModel onDutyModel;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="id_user")
 	private UserModel userModel;
 
 	public long getId() {
