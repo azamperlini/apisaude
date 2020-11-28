@@ -166,4 +166,5 @@ public class UserModel implements Serializable{
 		this.occurrencesModel = occurrencesModel;
 	}
 	
+	
 }
