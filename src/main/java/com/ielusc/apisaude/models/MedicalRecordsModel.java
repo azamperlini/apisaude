@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="TB_MEDICALRECORDS")
-@TableGenerator(name="tab", initialValue=2019, allocationSize=50)
+@TableGenerator(name="tab", initialValue=2019, allocationSize=1)
 public class MedicalRecordsModel implements Serializable{
 		
 	private static final long serialVersionUID = 1L;
